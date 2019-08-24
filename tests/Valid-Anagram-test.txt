@@ -1,0 +1,10 @@
+'' ''
+True
+a b
+False
+ab a
+False
+anagram nagaram
+True
+rat car
+False

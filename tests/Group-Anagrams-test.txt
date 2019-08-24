@@ -1,0 +1,10 @@
+eat tea tan ate nat bat
+ate eat tea, nat tan, bat
+x
+x
+1234 5678 90
+1234, 5678, 90
+a aa aaa
+a, aa, aaa
+asdf qwer
+asdf, qwer
