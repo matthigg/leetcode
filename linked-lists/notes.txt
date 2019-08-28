@@ -1,0 +1,23 @@
+Hey Matt,
+
+Support got back to me and basically said that the account holder has to open a case, or grant me permission to open a support case. 
+
+To open a case:
+
+1. Login using the orange "Sign In to the Console" button in the upper-right at aws.amazon.com
+2. Enter "support" in the "Find Services" search bar
+3. Click the orange "Create case" button
+4. Click the white "Account and billing support" button
+5. Pick a type and category (doesn't really matter) and then fill out the subject and description
+
+To give me support permission:
+
+1. Login and search for "IAM" in the search bar
+2. Click the "Users" link in the left-hand navigation bar
+3. Click directly on my IAM name "matthiggin" (and not the checkbox)
+4. Click the blue "Add Permissions" button
+5. Click the white "Attach existing policies directly" button
+6. Search for "support" in the search bar
+7. Click the checkboxes next to "AWSSupportAccess" and "SupportUser"
+8. Click the blue "Next: Review" button in the bottom right corner
+9. Click the blue "Add permissions" button in the bottom right corner
