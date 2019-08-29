@@ -1,12 +1,4 @@
-# Reverse a singly linked list.
-#
-# Example:
-# Input: 1->2->3->4->5->NULL
-# Output: 5->4->3->2->1->NULL
-#
-# Follow up:
-# A linked list can be reversed either iteratively or recursively. Could you 
-# implement both?
+# Reverse a linked list.
 
 class Node:
   def __init__(self, data=None):
@@ -25,70 +17,47 @@ class LinkedList:
   def display_nodes(self):
     ptr = self.head
     nodes = []
-    while ptr:
+    while ptr != None:
       nodes.append(ptr.data)
       ptr = ptr.next
     return nodes
 
-class ReverseLinkedList:
-  def __init__(self, input, ll, output_expected):
-    self.input = input
-    self.ll = ll
-    self.output_expected = output_expected
 
-# ========== Iterative Solution ===============================================
-# x
-#
-# Time complexity:
-#
-# Space complexity:
+# ========== Practice ==============================================
 
-  def iterative(self):
-    input, output_expected = self.input, self.output_expected
+def iterative(ll, output_expected):
+  ptr = ll.head
+  prev_node = None
+  while ptr != None:
+    ptr.target = ptr.next
+    ptr.next = prev_node
+    prev_node = ptr
+    ptr = ptr.target
+  ll.head = prev_node
 
-    # Reverse linked list
-    # print(self.ll.display_nodes())
-    ptr = self.ll
-    print(ptr)
+  print(ll.display_nodes() == output_expected, '\n', ll.display_nodes(), '\n', output_expected)
 
-
-# ========== Recursive Solution ===============================================
-# x
-#
-# Time complexity:
-#
-# Space complexity:
-
-  def recursive(self):
-    input = self.input
-    output_expected = self.output_expected
-    print(input, output_expected)
-
-# ========== Test =============================================================
+# ========== Test ==================================================
 
 def test(test_file, fn):
   with open(test_file) as tf:
     lines = tf.readlines()
     for i, line in enumerate(lines):
       if i % 2 == 0:
-        input = line.strip('\n')
+        input = int(line.strip('\n'))
       else:
-        output_expected = line.strip('\n')
-        
-        # Create Linked List
+        output_expected = line.strip('\n').split(', ')
+
+        # Create a linked list
         ll = LinkedList()
-        ll.create_node('node 3')
-        ll.create_node('node 2')
-        ll.create_node('node 1')
+        if input > 0:
+          for i in range(input):
+            ll.create_node('node {}'.format(input - i))
 
-        # Reverse Linked List
-        rll = ReverseLinkedList(input, ll, output_expected)
-        if fn == 'iterative':
-          rll.iterative()
-        if fn == 'recursive':
-          rll.recursive()
+          # Reverse the linked list
+          iterative(ll, output_expected)
 
-# ========== Command Line Arguments ===========================================
+# ========== Command Line Arguments ================================
 
 if __name__ == '__main__':
   import sys

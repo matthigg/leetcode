@@ -1,53 +1,59 @@
-# Given two strings s and t , write a function to determine if t is an anagram 
-# of s.
+# Given an array of integers, return indices of the two numbers such that they 
+# add up to a specific target.
 #
-# Example 1:
+# You may assume that each input would have exactly one solution, and you may 
+# not use the same element twice.
 #
-# Input: s = "anagram", t = "nagaram"
-# Output: true
-# Example 2:
+# Example:
 #
-# Input: s = "rat", t = "car"
-# Output: false
-# Note:
-# You may assume the string contains only lowercase alphabets.
+# Given nums = [2, 7, 11, 15], target = 9,
+# Because nums[0] + nums[1] = 2 + 7 = 9,
 #
-# Follow up:
-# What if the inputs contain unicode characters? How would you adapt your solution to such case?
+# return [0, 1].
 
-class ValidAnagram:
-  def __init__(self, input_A, input_B, output_expected):
-    self.input_A = input_A
-    self.input_B = input_B
+class TwoSum:
+  def __init__(self, input, output_expected, target):
+    self.input = input
     self.output_expected = output_expected
+    self.target = target
 
 # ========== Practice =========================================================
 
   def blank(self):
-    input_A, input_B, output_expected = self.input_A, self.input_B, self.output_expected
-    result = 'False'
+    input, output_expected, target = self.input, self.output_expected, self.target
 
-    # blank, result = 'True'/'False'
+    # blank, result = []
+    result = []
+    from collections import defaultdict
+    hash_table = defaultdict(list)
 
-    if sorted(input_A) == sorted(input_B):
-      result = 'True'
+    for index, value in enumerate(input):
+      complement = target - value
+      if complement in hash_table and len(hash_table[complement]) == 2:
+        result = hash_table[complement]
+        break
+      elif complement in hash_table and len(hash_table[complement]) == 1:
+        result = [index, hash_table[complement][0]]
+        break
+      hash_table[value].append(index)
 
-    print(output_expected == result)
 
-# ========== Test =============================================================
+    print(sorted(result) == sorted(output_expected), '\n', sorted(output_expected), '\n', sorted(result))
+
+# ========== Test ============================================================
 
 def test(test_file, fn):
   with open(test_file) as tf:
     lines = tf.readlines()
     for i, line in enumerate(lines):
       if i % 2 == 0:
-        input_A = line.strip('\n').split(' ')[0]
-        input_B = line.strip('\n').split(' ')[1]
+        target = int(line.strip('\n').split(', ')[0])
+        input = [int(x) for x in line.strip('\n').split(', ')[1].split(' ')]
       else:
-        output_expected = line.strip('\n')
-        va = ValidAnagram(input_A, input_B, output_expected)
+        output_expected = [int(x) for x in line.strip('\n').split(' ')]
+        ts = TwoSum(input, output_expected, target)
         if fn == 'blank':
-          va.blank()
+          ts.blank()
 
 # ========== Command Line Arguments ===========================================
 
