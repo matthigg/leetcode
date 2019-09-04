@@ -1,16 +1,11 @@
-ADOBECODEBANC, ABC
-BANC
-abcdef, afg
-no_substring_found
-abcdefg, abcdefg
-abcdefg
-abcd, bcde
-no_substring_found
-abc, abc
-abc
-a, aa
-no_substring_found
-bdab, ab
-ab
-ADOBECODEBANC, ABC
-BANC
+# Skip this first line, then read every 4 lines as a map and 5th line as output
+11110
+11010
+11000
+00000
+1
+11000
+11000
+00100
+00011
+3
