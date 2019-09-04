@@ -7,4 +7,6 @@ aabbcc
 abcdabcdabcd
 4
 aaaaaaa
-0
+1
+dvdf
+3

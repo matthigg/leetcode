@@ -11,8 +11,10 @@
 #
 # Input: [7,1,5,3,6,4]
 # Output: 5
-# Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-#              Not 7-1 = 6, as selling price needs to be larger than buying price.
+# Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), 
+# profit = 6 - 1 = 5. Not 7 - 1 = 6, as selling price needs to be larger than 
+# buying price.
+#
 # Example 2:
 #
 # Input: [7,6,4,3,1]
@@ -44,7 +46,7 @@ def test(test_file, fn):
       else:
         output_expected = int(line)
         bass = BuyAndSellStock(input, output_expected) 
-        bass.bruteForce()
+        bass.blank()
 
 # ========== Command Line Arguments ============================================
 
