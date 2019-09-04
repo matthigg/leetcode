@@ -1,2 +1,16 @@
 ADOBECODEBANC, ABC
 BANC
+abcdef, afg
+no_substring_found
+abcdefg, abcdefg
+abcdefg
+abcd, bcde
+no_substring_found
+abc, abc
+abc
+a, aa
+no_substring_found
+bdab, ab
+ab
+ADOBECODEBANC, ABC
+BANC

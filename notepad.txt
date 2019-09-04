@@ -1,10 +1,16 @@
-abcabcbb
-3
+ADOBECODEBANC, ABC
+BANC
+abcdef, afg
+no_substring_found
+abcdefg, abcdefg
+abcdefg
+abcd, bcde
+no_substring_found
+abc, abc
 abc
-3
-aabbcc
-2
-abcdabcdabcd
-4
-aaaaaaa
-0
+a, aa
+no_substring_found
+bdab, ab
+ab
+ADOBECODEBANC, ABC
+BANC
