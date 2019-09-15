@@ -49,7 +49,6 @@ def test(test_file, fn):
         bass.blank()
 
 # ========== Command Line Arguments ============================================
-
 if __name__ == '__main__':
   import sys
   test(sys.argv[1], sys.argv[2])

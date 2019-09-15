@@ -1,57 +1,62 @@
-# Given an integer array nums, find the contiguous subarray (containing at least 
-# one number) which has the largest sum and return its sum.
+# Say you have an array for which the ith element is the price of a given stock 
+# on day i.
 #
-# Example:
+# If you were only permitted to complete at most one transaction (i.e., buy one 
+# and sell one share of the stock), design an algorithm to find the maximum 
+# profit.
 #
-# Input: [-2,1,-3,4,-1,2,1,-5,4],
-# Output: 6
-# Explanation: [4,-1,2,1] has the largest sum = 6.
-# 
-# Follow up:
-# If you have figured out the O(n) solution, try coding another solution using 
-# the divide and conquer approach, which is more subtle.
+# Note that you cannot sell a stock before you buy one.
+#
+# Example 1:
+#
+# Input: [7,1,5,3,6,4]
+# Output: 5
+# Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), 
+# profit = 6 - 1 = 5. Not 7 - 1 = 6, as selling price needs to be larger than 
+# buying price.
+#
+# Example 2:
+#
+# Input: [7,6,4,3,1]
+# Output: 0
+# Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
-class MaximumSubarray:
+class BuyAndSellStock:
   def __init__(self, input, output_expected):
     self.input = input
     self.output_expected = output_expected
 
-# ========== Practice =========================================================
+# ===== Practice ===============================================================
 
   def blank(self):
     input, output_expected = self.input, self.output_expected
     result = 0
 
     # blank, result = int
-    import sys
-    max_sum = -sys.maxsize
-    current_sum = 0
+    L = 0
+    for R in range(len(input)):
+      diff = input[R] - input[L]
+      if diff > result:
+        result = diff
+      if diff < 0:
+        L = R
 
-    for i in input:
-      current_sum += i
-      max_sum = max(max_sum, current_sum)
-      if current_sum < 0:
-        current_sum = 0
-
-    result = max_sum
     print(result == output_expected)
 
-# ========== Test ==============================================================
+# ========== Tests =============================================================
 
 def test(test_file, fn):
   with open(test_file) as tf:
     lines = tf.readlines()
     for i, line in enumerate(lines):
       if i % 2 == 0:
-        input = [int(x) for x in line.strip('\n').split(' ')]
+        input = [int(x) for x in line.split(' ')]
       else:
-        output_expected = int(line.strip('\n'))
-        ms = MaximumSubarray(input, output_expected)
-        if fn == 'blank':
-          ms.blank()
+        output_expected = int(line)
+        bass = BuyAndSellStock(input, output_expected) 
+        bass.blank()
 
 # ========== Command Line Arguments ============================================
-
 if __name__ == '__main__':
   import sys
   test(sys.argv[1], sys.argv[2])
