@@ -10,7 +10,7 @@
 # line 7  - expected output from update_node()
 # line 8  - expected output from display_nodes()
 # line 9  - run delete_node() method at specified index
-# line 10  - expected output from delete_node()
+# line 10 - expected output from delete_node()
 # line 11 - expected output from display_nodes()
 #
 # Note: test/linked-list.txt assumes that the linked list is constructed by 
@@ -19,95 +19,64 @@
 # ========== Create a Linked List =============================================
 
 class Node:
-  def __init__(self, data=None):
+  def __init__(self, data=None, next=None):
     self.data = data
-    self.next = None
+    self.next = next
 
 class LinkedList:
-  def __init__(self):
-    self.head = Node()
+  def __init__(self, next=None):
+    self.next = next
 
   # Create a node
   def create_node(self, data):
-    ptr = self.head
-    while ptr.next != None:
-      ptr = ptr.next
-    ptr.next = Node(data)
+    new_node = Node(data, self.next)
+    self.next = new_node
 
-  # Return all nodes in a list
+  # Display all nodes in a list[]
   def display_nodes(self):
-    ptr = self.head
     nodes = []
-    while ptr.next != None:
-      nodes.append(ptr.next.data)
+    ptr = self.next
+    while ptr != None:
+      nodes.append(ptr.data)
       ptr = ptr.next
     return nodes
 
-  # Return the length of the list as an integer
-  def list_length(self):
-    ptr = self.head
-    length = 0
-    while ptr.next != None:
-      length += 1
-      ptr = ptr.next
-    return length
-
   # Return data:value for node at a specific index
   def read_node(self, target_index):
-
-    # Handle index that's out of range
-    if target_index > self.list_length() or target_index < 0:
-      return 'Error: index outside of index range'
-
-    ptr = self.head
+    ptr = self.next
     index = 0
-    while ptr.next != None:
-      ptr = ptr.next
+    while ptr != None:
       if index == target_index:
         return ptr.data
+      ptr = ptr.next
       index += 1
-    else:
-      return 'Error: index not found'
+    return 'Index not found'
 
   # Update the data:value for node at a specific index
   def update_node(self, target_index, new_data):
-
-    # Handle index that's out of range
-    if target_index > self.list_length() or target_index < 0:
-      return 'Error: index outside of index range'
-
-    ptr = self.head
+    ptr = self.next
     index = 0
-    while ptr.next != None:
-      ptr = ptr.next
+    while ptr != None:
       if index == target_index:
         ptr.data = new_data
         return ptr.data
+      ptr = ptr.next
       index += 1
-    else:
-      return 'Error: index not found'
+    return 'Index not found'
 
   # Delete a node at a specific index
   def delete_node(self, target_index):
-
-    # Handle index that's out of range
-    if target_index > self.list_length() or target_index < 0:
-      return 'Error: index outside of index range'
-
-    ptr = self.head
+    ptr = self.next
     index = 0
-    while ptr.next != None:
+    prev_node = self
+    while ptr != None:
+      if index == target_index:
+        prev_node.next = ptr.next
+        return ptr.data + '-DELETED'
       prev_node = ptr
       ptr = ptr.next
-      if index == target_index and ptr.next != None:
-        prev_node.next = ptr.next
-        return '{}-DELETED'.format(ptr.data)
-      elif index == target_index and ptr.next == None:
-        prev_node.next = None
-        return '{}-DELETED'.format(ptr.data)
       index += 1
-    else:
-      return 'Error: index not found'
+    return 'Index not found'
 
 # ========== Tests ============================================================
 
@@ -153,6 +122,7 @@ def testDelete(input, output_expected_1, output_expected_2):
   ll = LinkedList()
   for i in range(input[-1] + 1):
     ll.create_node('Node-{}'.format(i))
+  print('===', ll.display_nodes())
 
   # Results - Delete
   result_1 = []
@@ -163,8 +133,6 @@ def testDelete(input, output_expected_1, output_expected_2):
   result_2 = ll.display_nodes()
   print('Update - 2', result_2 == output_expected_2, '\n', result_2, '\n', output_expected_2)
 
-
-
 # Run all tests
 def test(test_file):
   with open(test_file) as tf:
@@ -172,41 +140,39 @@ def test(test_file):
     for i, line in enumerate(lines):
 
       # Create nodes
-      if i == 1:
+      if i == 0:
         number_of_nodes = int(line.strip('\n'))
-      if i == 2:
+      if i == 1:
         create_test_output_expected = line.strip('\n').split(', ')
 
       # Search for nodes at specific indices
-      if i == 3:
+      if i == 2:
         indices_to_check = [int(x) for x in line.strip('\n').split(' ')]
-      if i == 4:
+      if i == 3:
         read_test_output_expected = line.strip('\n').split(', ')
 
       # Update nodes at specific indices with new data
-      if i == 5:
+      if i == 4:
         indices_to_update = [int(x) for x in line.strip('\n').split(' ')]
-      if i == 6:
+      if i == 5:
         data_to_update = line.strip('\n').split(', ')
-      if i == 7:
+      if i == 6:
         update_test_output_expected_1 = line.strip('\n').split(', ')
-      if i == 8:
+      if i == 7:
         update_test_output_expected_2 = line.strip('\n').split(', ')
 
       # Delete nodes at specific indices
-      # if i == 9:
-      #   indices_to_delete = [int(x) for x in line.strip('\n').split(' ')]
-      # if i == 10:
-      #   delete_test_output_expected_1 = line.strip('\n').split(', ')
-      # if i == 11:
-      #   delete_test_output_expected_2 = line.strip('\n').split(', ')
-
-
+      if i == 8:
+        indices_to_delete = [int(x) for x in line.strip('\n').split(' ')]
+      if i == 9:
+        delete_test_output_expected_1 = line.strip('\n').split(', ')
+      if i == 10:
+        delete_test_output_expected_2 = line.strip('\n').split(', ')
 
     testCreate(number_of_nodes, create_test_output_expected)
     testRead(indices_to_check, read_test_output_expected)
     testUpdate(indices_to_update, data_to_update, update_test_output_expected_1, update_test_output_expected_2)
-    # testDelete(indices_to_delete, delete_test_output_expected_1, delete_test_output_expected_2)
+    testDelete(indices_to_delete, delete_test_output_expected_1, delete_test_output_expected_2)
 
 # ========== Command Line Argument(s) =========================================
 
