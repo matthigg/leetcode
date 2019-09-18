@@ -1,62 +1,69 @@
-# Say you have an array for which the ith element is the price of a given stock 
-# on day i.
+# Given an array of integers, return indices of the two numbers such that they 
+# add up to a specific target.
 #
-# If you were only permitted to complete at most one transaction (i.e., buy one 
-# and sell one share of the stock), design an algorithm to find the maximum 
-# profit.
+# You may assume that each input would have exactly one solution, and you may 
+# not use the same element twice.
 #
-# Note that you cannot sell a stock before you buy one.
+# Example:
 #
-# Example 1:
+# Given nums = [2, 7, 11, 15], target = 9,
+# Because nums[0] + nums[1] = 2 + 7 = 9,
 #
-# Input: [7,1,5,3,6,4]
-# Output: 5
-# Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), 
-# profit = 6 - 1 = 5. Not 7 - 1 = 6, as selling price needs to be larger than 
-# buying price.
-#
-# Example 2:
-#
-# Input: [7,6,4,3,1]
-# Output: 0
-# Explanation: In this case, no transaction is done, i.e. max profit = 0.
+# return [0, 1].
 
-class BuyAndSellStock:
-  def __init__(self, input, output_expected):
+class TwoSum:
+  def __init__(self, input, output_expected, target):
     self.input = input
     self.output_expected = output_expected
+    self.target = target
 
-# ===== Practice ===============================================================
+# ========== Practice =========================================================
 
   def blank(self):
-    input, output_expected = self.input, self.output_expected
-    result = 0
+    input, output_expected, target = self.input, self.output_expected, self.target
+    N = len(input)
+    result = []
 
-    # blank, result = int
-    L = 0
-    for R in range(len(input)):
-      diff = input[R] - input[L]
-      if diff > result:
-        result = diff
-      if diff < 0:
-        L = R
+    # Create hash table
+    from collections import defaultdict
+    hash_table = defaultdict(list)
 
-    print(result == output_expected)
+    # First pass
+    for i in range(N):
+      if input[i] not in hash_table:
+        hash_table[input[i]].append(i)
+      else:
+        hash_table[input[i]].append(i)
 
-# ========== Tests =============================================================
+    # Second pass
+    for j in range(N):
+      complement = target - input[j]
+      if complement in hash_table and len(hash_table[complement]) == 1:
+        result = [hash_table[complement][0], j]
+      elif complement in hash_table and len(hash_table[complement]) > 1:
+        result = hash_table[complement]
+
+    # print(hash_table)
+
+    print(result == output_expected, '\n', output_expected, '\n', result)
+
+# ========== Test ============================================================
 
 def test(test_file, fn):
   with open(test_file) as tf:
     lines = tf.readlines()
     for i, line in enumerate(lines):
       if i % 2 == 0:
-        input = [int(x) for x in line.split(' ')]
+        target = int(line.strip('\n').split(', ')[0])
+        input = [int(x) for x in line.strip('\n').split(', ')[1].split(' ')]
       else:
-        output_expected = int(line)
-        bass = BuyAndSellStock(input, output_expected) 
-        bass.blank()
+        output_expected = [int(x) for x in line.strip('\n').split(' ')]
+        ts = TwoSum(input, output_expected, target)
+        if fn == 'blank':
+          ts.blank()
 
-# ========== Command Line Arguments ============================================
+# ========== Command Line Arguments ===========================================
+
 if __name__ == '__main__':
   import sys
   test(sys.argv[1], sys.argv[2])
